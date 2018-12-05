@@ -1,6 +1,7 @@
 package com.project.senac.bcc.googleplayanalysis.Modules.Batch.Model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -9,18 +10,7 @@ public class App {
     public App() {
     }
 
-    public App(String name, Double rating, Integer reviewsQty, String size, String installsQty, String contentRating, String lastUpdate, String version) {
-        this.name = name;
-        this.rating = rating;
-        this.reviewsQty = reviewsQty;
-        this.size = size;
-        this.installsQty = installsQty;
-        this.contentRating = contentRating;
-        this.lastUpdate = lastUpdate;
-        this.version = version;
-    }
-
-    public App(String name, Double rating, Category category, Integer reviewsQty, String size, String installsQty, Type type, String price, String contentRating, List<Genry> genry, String lastUpdate, String version, AndroidVersion androidVersion) {
+    public App(String name, Double rating, Category category, Integer reviewsQty, String size, String installsQty, Type type, Double price, String contentRating, List<Genry> genry, Date lastUpdate, String version, AndroidVersion androidVersion) {
         this.name = name;
         this.rating = rating;
         this.category = category;
@@ -59,7 +49,7 @@ public class App {
     @JoinColumn(name = "type_id")
     private Type type;
 
-    private String price;
+    private Double price;
 
     private String contentRating;
 
@@ -67,7 +57,8 @@ public class App {
     @JoinTable(name = "app_genry", joinColumns = { @JoinColumn(name = "app_id") }, inverseJoinColumns = { @JoinColumn(name = "genry_id") })
     private List<Genry> genry;
 
-    private String lastUpdate;
+    @org.hibernate.annotations.Type(type="date")
+    private Date lastUpdate;
 
     private String version;
 
@@ -140,11 +131,11 @@ public class App {
         this.type = type;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -164,11 +155,11 @@ public class App {
         this.genry = genry;
     }
 
-    public String getLastUpdate() {
+    public Date getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(String lastUpdate) {
+    public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -195,17 +186,17 @@ public class App {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", rating=" + rating +
-                ", category=" + category +
+                ", category=" + category.toString() +
                 ", reviewsQty=" + reviewsQty +
                 ", size='" + size + '\'' +
                 ", installsQty='" + installsQty + '\'' +
-                ", type=" + type +
+                ", type=" + type.toString() +
                 ", price='" + price + '\'' +
                 ", contentRating='" + contentRating + '\'' +
-                ", genry=" + genry +
+                ", genry=" + genry.toString() +
                 ", lastUpdate='" + lastUpdate + '\'' +
                 ", version='" + version + '\'' +
-                ", androidVersion=" + androidVersion +
+                ", androidVersion=" + androidVersion.toString() +
                 "}\n";
     }
 }

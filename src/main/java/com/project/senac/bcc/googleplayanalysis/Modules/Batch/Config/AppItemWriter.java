@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Configuration
 public class AppItemWriter implements ItemWriter<AppVO> {
@@ -64,8 +64,15 @@ public class AppItemWriter implements ItemWriter<AppVO> {
             if (type == null) {
                 type = typeService.saveAndReturn(new Type(appVO.getType()));
             }
+            Date date = null;
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                date = format.parse(appVO.getLastUpdate());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-            App app = new App(appVO.getName(), Double.valueOf(appVO.getRating()), category, Integer.valueOf(appVO.getReviewsQty()), appVO.getSize(), appVO.getInstallsQty(), type, appVO.getPrice(), appVO.getContentRating(), genries, appVO.getLastUpdate(), appVO.getVersion(), androidVersion);
+            App app = new App(appVO.getName(), Double.valueOf(appVO.getRating()), category, Integer.parseInt(appVO.getReviewsQty()), appVO.getSize(), appVO.getInstallsQty(), type, Double.parseDouble(appVO.getPrice()), appVO.getContentRating(), genries, date, appVO.getVersion(), androidVersion);
 
             System.out.println(app.toString());
             appService.save(app);
