@@ -46,4 +46,12 @@ public class Genry {
     public void setApps(List<App> apps) {
         this.apps = apps;
     }
+
+    @Override
+    public String toString() {
+        return "Genry{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

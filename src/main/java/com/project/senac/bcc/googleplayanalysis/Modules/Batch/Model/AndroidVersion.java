@@ -46,4 +46,12 @@ public class AndroidVersion {
     public void setApps(List<App> apps) {
         this.apps = apps;
     }
+
+    @Override
+    public String toString() {
+        return "AndroidVersion{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -46,4 +46,12 @@ public class Category {
     public void setApps(List<App> apps) {
         this.apps = apps;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

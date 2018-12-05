@@ -46,6 +46,15 @@ public class Type {
     public void setApps(List<App> apps) {
         this.apps = apps;
     }
+
+
+    @Override
+    public String toString() {
+        return "Type{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
 
 
